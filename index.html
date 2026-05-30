@@ -174,9 +174,9 @@
             color: #1a202c;
         }
 
-        /* Container onde o botão do Mercado Pago vai renderizar */
         #wallet_container {
             width: 100%;
+            min-height: 48px;
         }
 
         .grid-infos {
@@ -290,8 +290,8 @@
     const inputQtd = document.getElementById('input-qtd');
     const valorFinalTxt = document.getElementById('valor-final');
 
-    // Inicializando o Mercado Pago com a sua Public Key de Produção
-    const mp = new MercadoPago('APP_USR-955efe22-0f10-4b6f-9f51-3c1a0fe7d049', {
+    // Inicializando com a chave pública de PRODUÇÃO válida
+    const mp = new MercadoPago('APP_USR-c4c9e26d-ddec-4e66-931d-c5bb5ac6a588', {
         locale: 'pt-BR'
     });
 
@@ -304,7 +304,6 @@
         let total = qtd * precoPorCota;
         valorFinalTxt.innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
         
-        // Atualiza o botão de pagamento sempre que o valor mudar
         renderizarBotaoPagamento(qtd, total);
     }
 
@@ -323,7 +322,6 @@
         }
     }
 
-    // Função para criar/atualizar o botão integrado do Mercado Pago
     async function renderizarBotaoPagamento(quantidade, valorTotal) {
         if (walletBrickController) {
             walletBrickController.unmount();
@@ -331,7 +329,6 @@
 
         bricksBuilder.create("wallet", "wallet_container", {
             initialization: {
-                // Cria a preferência básica de pagamento dinâmica direto no Checkout Pro
                 preferenceId: null, 
                 marketplace: false
             },
@@ -343,7 +340,6 @@
             },
             callbacks: {
                 onSubmit: () => {
-                    // Configura os dados do produto dinamicamente para o Mercado Pago na hora do clique
                     return new Promise((resolve) => {
                         const dadosPreferencia = {
                             items: [{
@@ -363,10 +359,10 @@
                     });
                 },
                 onReady: () => {
-                    console.log("Botão do Mercado Pago carregado com sucesso!");
+                    console.log("Botão de produção carregado!");
                 },
                 onError: (error) => {
-                    console.error("Erro no checkout do Mercado Pago:", error);
+                    console.error("Erro no checkout:", error);
                 }
             }
         }).then((controller) => {
@@ -374,7 +370,6 @@
         });
     }
 
-    // Inicia o botão na abertura da página
     window.onload = function() {
         calcularTotal();
     };
