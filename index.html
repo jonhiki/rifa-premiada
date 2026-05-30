@@ -315,8 +315,6 @@
     const precoPorCota = 0.40;
     const inputQtd = document.getElementById('input-qtd');
     const valorFinalTxt = document.getElementById('valor-final');
-
-    // Número padrão para teste de redirecionamento
     const meuWhatsApp = "5511999999999"; 
 
     function calcularTotal() {
@@ -344,10 +342,8 @@
     function enviarPedido() {
         let qtd = inputQtd.value;
         let total = (qtd * precoPorCota).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        
         let textoMensagem = `Olá! Quero reservar ${qtd} cotas da Rifa Premiada.\nValor total: ${total}.\nPor favor, me envie o código Pix para pagamento!`;
         let linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(textoMensagem)}`;
-        
         window.open(linkZap, '_blank');
     }
 </script>
