@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifa Premiada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            padding: 20px 10px;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 450px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .header-rifa {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header-rifa h1 {
+            font-size: 24px;
+            color: #1a202c;
+            margin-bottom: 5px;
+        }
+
+        .preco-destaque {
+            background: #fff5f5;
+            color: #e53e3e;
+            font-weight: bold;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            border: 1px dashed #feb2b2;
+        }
+
+        .secao-cotas {
+            text-align: center;
+        }
+
+        .titulo-secao {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #718096;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .grid-botoes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .btn-cota {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-cota:hover {
+            border-color: #3182ce;
+            background: #ebf8ff;
+        }
+
+        .contador-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .btn-passo {
+            background: #f7fafc;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #4a5568;
+        }
+
+        #input-qtd {
+            border: none;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            width: 60%;
+            outline: none;
+        }
+
+        .resumo-valor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 25px 0 15px 0;
+            font-size: 16px;
+            color: #4a5568;
+        }
+
+        #valor-final {
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a202c;
+        }
+
+        .btn-reservar {
+            background: #22c55e;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-reservar:hover {
+            background: #16a34a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-rifa">
+        <h1>Rifa Premiada</h1>
+        <div class="preco-destaque">Participe por apenas R$ 0,40 🔥</div>
+    </div>
+
+    <div class="secao-cotas">
+        <div class="titulo-secao">Selecione a quantidade de cotas</div>
+        
+        <div class="grid-botoes">
+            <button class="btn-cota" onclick="adicionarCotas(1)">+1</button>
+            <button class="btn-cota" onclick="adicionarCotas(5)">+5</button>
+            <button class="btn-cota" onclick="adicionarCotas(10)">+10</button>
+            <button class="btn-cota" onclick="adicionarCotas(100)">+100</button>
+            <button class="btn-cota" onclick="adicionarCotas(1000)">+1000</button>
+            <button class="btn-cota" onclick="adicionarCotas(5000)">+5000</button>
+        </div>
+
+        <div class="contador-container">
+            <button class="btn-passo" onclick="alterarPasso(-1)">-</button>
+            <input type="number" id="input-qtd" value="1" min="1" oninput="calcularTotal()">
+            <button class="btn-passo" onclick="alterarPasso(1)">+</button>
+        </div>
+    </div>
+
+    <div class="resumo-valor">
+        <span>Valor final</span>
+        <span id="valor-final">R$ 0,40</span>
+    </div>
+
+    <button class="btn-reservar">Reservar</button>
+</div>
+
+<script>
+    const precoPorCota = 0.40;
+    const inputQtd = document.getElementById('input-qtd');
+    const valorFinalTxt = document.getElementById('valor-final');
+
+    function calcularTotal() {
+        let qtd = parseInt(inputQtd.value);
+        if (isNaN(qtd) || qtd < 1) qtd = 1;
+        
+        let total = qtd * precoPorCota;
+        
+        valorFinalTxt.innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function adicionarCotas(quantidade) {
+        let atual = parseInt(inputQtd.value) || 0;
+        inputQtd.value = atual + quantidade;
+        calcularTotal();
+    }
+
+    function alterarPasso(valor) {
+        let atual = parseInt(inputQtd.value) || 1;
+        let novoValor = atual + valor;
+        if (novoValor >= 1) {
+            inputQtd.value = novoValor;
+            calcularTotal();
+        }
+    }
+</script>
+
+</body>
+  </html>
+  
