@@ -7,81 +7,39 @@
     <style>
         * { box-sizing: border-box; font-family: sans-serif; }
         body { background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { background: #fff; width: 100%; max-width: 400px; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .banner { height: 150px; border-radius: 10px; margin-bottom: 20px; }
-        h1 { font-size: 22px; margin: 0 0 10px 0; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .btn-num { padding: 10px; border: 1px solid #ddd; border-radius: 5px; background: #fff; cursor: pointer; }
-        .control { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 20px; }
-        input { width: 100px; padding: 10px; text-align: center; border: 1px solid #ddd; border-radius: 5px; }
-        .btn-reservar { width: 100%; padding: 15px; background: #059669; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-bottom: 10px; }
-        .footer-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        .card { border: 1px solid #eee; padding: 10px; border-radius: 8px; font-size: 12px; }
+        .container { background: #fff; width: 100%; max-width: 400px; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+        .btn-reservar { width: 100%; padding: 15px; background: #059669; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        textarea { width: 100%; height: 100px; margin-top: 10px; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <img src="https://i.postimg.cc/QxvxQFFt/file-000000000ba98720eafcbe9cf244b7d05.png" class="banner" style="width: 100%;">
-    <h1>Rifa premiada</h1>
-    <p>Organizado por: <strong>Davi amor</strong></p>
+    <h1>Rifa Premiada</h1>
+    <p>Organizado por: <strong>Deivid Arruda Cajui</strong></p>
+    
+    <button class="btn-reservar" onclick="exibirPix()">GERAR PIX</button>
 
-    <div class="grid">
-        <button class="btn-num" onclick="add(1)">+1</button>
-        <button class="btn-num" onclick="add(5)">+5</button>
-        <button class="btn-num" onclick="add(10)">+10</button>
-        <button class="btn-num" onclick="add(100)">+100</button>
-        <button class="btn-num" onclick="add(1000)">+1000</button>
-        <button class="btn-num" onclick="add(5000)">+5000</button>
-    </div>
-
-    <div class="control">
-        <button onclick="add(-1)">-</button>
-        <input type="number" id="qtd" value="1" readonly>
-        <button onclick="add(1)">+</button>
-    </div>
-
-    <p>Valor final: <strong>R$ <span id="total">0,40</span></strong></p>
-
-    <button class="btn-reservar" onclick="gerarPix()">GERAR PIX</button>
-
-    <div id="resultadoPix" style="margin-top:20px; display:none;">
-        <p>Código para copiar:</p>
-        <textarea id="copiaCola" readonly style="width:100%; height:80px; font-size: 12px;"></textarea>
-        <button class="btn-reservar" style="background: #27ae60;" onclick="copiarTexto()">COPIAR CÓDIGO</button>
-    </div>
-
-    <div class="footer-cards">
-        <div class="card">MÉTODO DE PAGAMENTO<br>💎 PIX</div>
-        <div class="card">SORTEIO<br>🍀 LIVE NO INSTAGRAM</div>
+    <div id="areaPix" style="display:none; margin-top:20px;">
+        <p>Código copiado para sua área de transferência:</p>
+        <textarea id="copiaCola" readonly></textarea>
+        <button class="btn-reservar" style="background: #27ae60;" onclick="copiarTexto()">COPIAR NOVAMENTE</button>
     </div>
 </div>
 
 <script>
-    let qtd = 1;
-    function add(n) {
-        qtd = Math.max(1, qtd + n);
-        document.getElementById('qtd').value = qtd;
-        document.getElementById('total').innerText = (qtd * 0.40).toFixed(2).replace('.', ',');
-    }
-
-    function gerarPix() {
-        var valorTotal = (qtd * 0.40).toFixed(2);
-        var chave = "deividkratos000@gmail.com"; 
-        var nome = "DAVI AMOR";
+    function exibirPix() {
+        // Código PIX fixo oficial
+        var codigoOficial = "00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB";
         
-        // Estrutura com identificador "03" para e-mail
-        var pix = "00020126" + (30 + chave.length) + "0014BR.GOV.BCB.PIX01" + "03" + (chave.length < 10 ? "0" + chave.length : chave.length) + chave + "5204000053039865405" + valorTotal + "5802BR5913" + nome + "6008BRASILIA62070503***6304";
+        var campo = document.getElementById('copiaCola');
+        campo.value = codigoOficial;
+        document.getElementById('areaPix').style.display = 'block';
         
-        var crc = 0xFFFF;
-        for (let i = 0; i < pix.length; i++) {
-            crc ^= pix.charCodeAt(i) << 8;
-            for (let j = 0; j < 8; j++) crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : (crc << 1);
-        }
-        
-        var hexCrc = (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
-        document.getElementById('copiaCola').value = pix + hexCrc;
-        document.getElementById('resultadoPix').style.display = 'block';
+        // Copia automaticamente
+        campo.select();
+        document.execCommand('copy');
+        alert("Código PIX copiado com sucesso! Agora é só colar no seu banco.");
     }
 
     function copiarTexto() {
