@@ -3,71 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifa Premiada</title>
+    <title>Corrente do Bem</title>
     <style>
-        body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
-        .btn-cotas { padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: white; cursor: pointer; }
-        .controls { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0; }
-        .btn-add { padding: 10px 20px; border: 1px solid #ddd; background: white; cursor: pointer; }
-        .valor-final { font-weight: bold; margin: 20px 0; font-size: 1.2em; }
-        .btn-reservar { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        .info-bar { display: flex; gap: 10px; margin-top: 20px; }
-        .box { flex: 1; border: 1px solid #ddd; padding: 10px; border-radius: 5px; font-size: 12px; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            justify-content: center; 
+            padding: 20px;
+        }
+        .card { 
+            background: #ffffff; 
+            width: 100%; 
+            max-width: 500px; 
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 { color: #2c3e50; margin-bottom: 20px; font-size: 24px; }
+        p { color: #555; line-height: 1.6; font-size: 16px; margin-bottom: 20px; }
+        .destaque { font-weight: bold; color: #2c3e50; }
+        
+        .btn-pix { 
+            background: #059669; 
+            color: white; 
+            padding: 15px 25px; 
+            border: none; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 30px;
+            transition: background 0.3s;
+        }
+        .btn-pix:hover { background: #047857; }
+        #aviso { margin-top: 10px; font-weight: bold; color: #059669; height: 20px; }
+
+        .galeria { margin-top: 20px; }
+        .galeria img { 
+            width: 100%; 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .galeria img:hover { transform: scale(1.02); }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Rifa premiada</h2>
-    <p>Organizado por: <strong>Deivid Arruda Cajui</strong></p>
+<div class="card">
+    <h1>Corrente do Bem ❤️</h1>
+    <p>Sua solidariedade tem o poder de transformar vidas. Este projeto busca levar apoio a quem mais precisa.</p>
+    <p class="destaque">Qualquer quantia é muito bem-vinda e fará toda a diferença!</p>
 
-    <div class="grid">
-        <button class="btn-cotas" onclick="setQtd(1)">+1</button>
-        <button class="btn-cotas" onclick="setQtd(5)">+5</button>
-        <button class="btn-cotas" onclick="setQtd(10)">+10</button>
-        <button class="btn-cotas" onclick="setQtd(100)">+100</button>
-        <button class="btn-cotas" onclick="setQtd(1000)">+1000</button>
-        <button class="btn-cotas" onclick="setQtd(5000)">+5000</button>
-    </div>
+    <button class="btn-pix" onclick="copiar()">CLIQUE AQUI PARA COPIAR O PIX</button>
+    <p id="aviso"></p>
 
-    <div class="controls">
-        <button class="btn-add" onclick="alterar(-1)">-</button>
-        <input type="number" id="qtd" value="1" style="width: 50px; text-align: center;" readonly>
-        <button class="btn-add" onclick="alterar(1)">+</button>
-    </div>
-
-    <div class="valor-final">
-        <span>Valor final: R$ <span id="total">0,40</span></span>
-    </div>
-
-    <div id="areaPix" style="text-align: center;">
-        <img src="1000138409.jpg" style="width: 200px; margin-bottom: 15px;">
-        <textarea id="copiaCola" style="width:100%; height:80px; margin-bottom:10px;" readonly>00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB</textarea>
-        <button class="btn-reservar" onclick="copiar()">RESERVAR</button>
-    </div>
-
-    <div class="info-bar">
-        <div class="box">MÉTODO DE PAGAMENTO<br>💎 PIX</div>
-        <div class="box">SORTEIO<br>🍀 LIVE NO INSTAGRAM</div>
+    <div class="galeria">
+        <img src="063d0c70-1bea-44ef-82c8-7f0d3125b743.jpeg" alt="Animal em tratamento">
+        <img src="1000138414.jpg" alt="Animal em tratamento">
+        <img src="1000138419.png" alt="Animal em tratamento">
+        <img src="3f402980-15ba-48ca-b30b-e0ffb50228e1.jpeg" alt="Animal em tratamento">
+        <img src="6e6cb1cb-c5fa-4383-8d4a-943352cd2aec.jpeg" alt="Animal em tratamento">
+        <img src="a5b38671-c216-4391-8e1d-3e3737136955.jpeg" alt="Animal em tratamento">
+        <img src="d740c41d-9884-4c00-a53e-09fe6bdf34cc.jpeg" alt="Animal em tratamento">
     </div>
 </div>
 
 <script>
-    let qtd = 1;
-    function setQtd(n) { qtd = n; update(); }
-    function alterar(n) { qtd = Math.max(1, qtd + n); update(); }
-    function update() {
-        document.getElementById('qtd').value = qtd;
-        document.getElementById('total').innerText = (qtd * 0.40).toFixed(2).replace('.', ',');
-    }
     function copiar() {
-        var c = document.getElementById('copiaCola');
-        c.select();
-        document.execCommand('copy');
-        alert("Código Pix copiado! Lembre-se de conferir o valor R$ " + document.getElementById('total').innerText + " no seu banco.");
+        const chave = '00020126580014br.gov.bcb.pix01368a92fdf1-bdf7-466d-9d17-298d50f26f04520400005303986';
+        navigator.clipboard.writeText(chave);
+        document.getElementById('aviso').innerText = "Chave copiada! Obrigado pela sua generosidade!";
     }
 </script>
+
 </body>
 </html>
