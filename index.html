@@ -69,14 +69,19 @@
         var valorTotal = (qtd * 0.40).toFixed(2);
         var chave = "Bce1dc10-49d2-49ca-8369-dae7b62bd6c4";
         var nome = "DAVI AMOR";
+        
+        // Estrutura do payload PIX
         var pix = "00020126" + (27 + chave.length) + "0014BR.GOV.BCB.PIX01" + (chave.length < 10 ? "0" + chave.length : chave.length) + chave + "5204000053039865405" + valorTotal + "5802BR5913" + nome + "6008BRASILIA62070503***6304";
         
+        // Cálculo CRC16
         var crc = 0xFFFF;
         for (let i = 0; i < pix.length; i++) {
             crc ^= pix.charCodeAt(i) << 8;
             for (let j = 0; j < 8; j++) crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : (crc << 1);
         }
-        document.getElementById('copiaCola').value = pix + ("0000" + (crc & 0xFFFF).toString(16).toUpperCase()).slice(-4);
+        
+        var hexCrc = (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+        document.getElementById('copiaCola').value = pix + hexCrc;
         document.getElementById('resultadoPix').style.display = 'block';
     }
 
