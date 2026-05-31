@@ -5,46 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifa Premiada</title>
     <style>
-        * { box-sizing: border-box; font-family: sans-serif; }
-        body { background-color: #f4f6f9; margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .container { background: #fff; width: 100%; max-width: 400px; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
-        .btn-reservar { width: 100%; padding: 15px; background: #059669; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        textarea { width: 100%; height: 100px; margin-top: 10px; font-size: 12px; }
+        body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .header { text-align: center; margin-bottom: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+        .btn-cotas { padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: white; cursor: pointer; }
+        .controls { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0; }
+        .btn-add { padding: 10px 20px; border: 1px solid #ddd; background: white; cursor: pointer; }
+        .valor-final { display: flex; justify-content: space-between; font-weight: bold; margin: 20px 0; }
+        .btn-reservar { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .info-bar { display: flex; gap: 10px; margin-top: 20px; }
+        .box { flex: 1; border: 1px solid #ddd; padding: 10px; border-radius: 5px; font-size: 12px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Rifa Premiada</h1>
-    <p>Organizado por: <strong>Deivid Arruda Cajui</strong></p>
-    
-    <button class="btn-reservar" onclick="exibirPix()">GERAR PIX</button>
+    <div class="header">
+        <h2>Rifa premiada</h2>
+        <p>Organizado por: <strong>Deivid Arruda Cajui</strong></p>
+    </div>
 
-    <div id="areaPix" style="display:none; margin-top:20px;">
-        <p>Código copiado para sua área de transferência:</p>
-        <textarea id="copiaCola" readonly></textarea>
-        <button class="btn-reservar" style="background: #27ae60;" onclick="copiarTexto()">COPIAR NOVAMENTE</button>
+    <div class="grid">
+        <button class="btn-cotas" onclick="setQtd(1)">+1</button>
+        <button class="btn-cotas" onclick="setQtd(5)">+5</button>
+        <button class="btn-cotas" onclick="setQtd(10)">+10</button>
+        <button class="btn-cotas" onclick="setQtd(100)">+100</button>
+        <button class="btn-cotas" onclick="setQtd(1000)">+1000</button>
+        <button class="btn-cotas" onclick="setQtd(5000)">+5000</button>
+    </div>
+
+    <div class="controls">
+        <button class="btn-add" onclick="alterar(-1)">-</button>
+        <input type="number" id="qtd" value="1" style="width: 50px; text-align: center;">
+        <button class="btn-add" onclick="alterar(1)">+</button>
+    </div>
+
+    <div class="valor-final">
+        <span>Valor final</span>
+        <span>R$ <span id="total">0,40</span></span>
+    </div>
+
+    <button class="btn-reservar" onclick="exibirPix()">RESERVAR</button>
+
+    <div class="info-bar">
+        <div class="box">MÉTODO DE PAGAMENTO<br>💎 PIX</div>
+        <div class="box">SORTEIO<br>🍀 LIVE NO INSTAGRAM</div>
+    </div>
+
+    <div id="areaPix" style="display:none; margin-top:20px; text-align: center;">
+        <img src="1000138409.jpg" style="width: 150px;">
+        <textarea id="copiaCola" style="width:100%; height:50px; margin-top:10px;" readonly></textarea>
+        <button onclick="copiar()" style="width:100%; padding:10px; margin-top:5px;">COPIAR CÓDIGO</button>
     </div>
 </div>
 
 <script>
-    function exibirPix() {
-        // Código PIX fixo oficial
-        var codigoOficial = "00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB";
-        
-        var campo = document.getElementById('copiaCola');
-        campo.value = codigoOficial;
-        document.getElementById('areaPix').style.display = 'block';
-        
-        // Copia automaticamente
-        campo.select();
-        document.execCommand('copy');
-        alert("Código PIX copiado com sucesso! Agora é só colar no seu banco.");
+    let qtd = 1;
+    function setQtd(n) { qtd = n; update(); }
+    function alterar(n) { qtd = Math.max(1, qtd + n); update(); }
+    function update() {
+        document.getElementById('qtd').value = qtd;
+        document.getElementById('total').innerText = (qtd * 0.40).toFixed(2).replace('.', ',');
     }
-
-    function copiarTexto() {
-        var c = document.getElementById('copiaCola');
-        c.select();
+    function exibirPix() {
+        document.getElementById('copiaCola').value = "00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB";
+        document.getElementById('areaPix').style.display = 'block';
+    }
+    function copiar() {
+        document.getElementById('copiaCola').select();
         document.execCommand('copy');
         alert("Código copiado!");
     }
