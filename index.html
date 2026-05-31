@@ -7,20 +7,17 @@
     <style>
         body { font-family: sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
         .card { background: #ffffff; width: 100%; max-width: 500px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
-        .btn-pix { background: #059669; color: white; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin: 20px 0; }
+        .btn-pix { background: #059669; color: white; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin: 20px 0; font-size: 16px; }
+        .btn-pix:hover { background: #047857; }
         .galeria img { width: 100%; border-radius: 12px; margin-bottom: 10px; display: block; }
-        .email-pix { font-size: 18px; font-weight: bold; color: #333; margin: 10px 0; padding: 10px; background: #eee; border-radius: 8px; }
     </style>
 </head>
 <body>
 <div class="card">
     <h1>Corrente do Bem ❤️</h1>
-    <p>Sua solidariedade tem o poder de transformar vidas.</p>
+    <p>Sua solidariedade transforma vidas. Clique abaixo para copiar o código Pix:</p>
     
-    <p>Chave Pix (E-mail):</p>
-    <div class="email-pix">deividkratos000@gmail.com</div>
-    
-    <button class="btn-pix" onclick="copiar()">COPIAR E-MAIL DO PIX</button>
+    <button class="btn-pix" onclick="copiar()">CLIQUE AQUI PARA COPIAR O PIX</button>
     <p id="aviso"></p>
 
     <div class="galeria">
@@ -35,9 +32,9 @@
 </div>
 <script>
     function copiar() {
-        const email = 'deividkratos000@gmail.com';
-        navigator.clipboard.writeText(email).then(() => {
-            document.getElementById('aviso').innerText = "E-mail copiado! Cole no Pix do seu banco.";
+        const pix = '00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB';
+        navigator.clipboard.writeText(pix).then(() => {
+            document.getElementById('aviso').innerText = "Código copiado com sucesso! Pode colar no seu banco.";
         });
     }
 </script>
