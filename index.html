@@ -6,13 +6,12 @@
     <title>Rifa Premiada</title>
     <style>
         body { font-family: sans-serif; background-color: #f8f9fa; margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .header { text-align: center; margin-bottom: 20px; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
         .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
         .btn-cotas { padding: 12px; border: 1px solid #ddd; border-radius: 5px; background: white; cursor: pointer; }
         .controls { display: flex; justify-content: center; align-items: center; gap: 10px; margin: 20px 0; }
         .btn-add { padding: 10px 20px; border: 1px solid #ddd; background: white; cursor: pointer; }
-        .valor-final { display: flex; justify-content: space-between; font-weight: bold; margin: 20px 0; }
+        .valor-final { font-weight: bold; margin: 20px 0; font-size: 1.2em; }
         .btn-reservar { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
         .info-bar { display: flex; gap: 10px; margin-top: 20px; }
         .box { flex: 1; border: 1px solid #ddd; padding: 10px; border-radius: 5px; font-size: 12px; }
@@ -21,10 +20,8 @@
 <body>
 
 <div class="container">
-    <div class="header">
-        <h2>Rifa premiada</h2>
-        <p>Organizado por: <strong>Deivid Arruda Cajui</strong></p>
-    </div>
+    <h2>Rifa premiada</h2>
+    <p>Organizado por: <strong>Deivid Arruda Cajui</strong></p>
 
     <div class="grid">
         <button class="btn-cotas" onclick="setQtd(1)">+1</button>
@@ -37,26 +34,23 @@
 
     <div class="controls">
         <button class="btn-add" onclick="alterar(-1)">-</button>
-        <input type="number" id="qtd" value="1" style="width: 50px; text-align: center;">
+        <input type="number" id="qtd" value="1" style="width: 50px; text-align: center;" readonly>
         <button class="btn-add" onclick="alterar(1)">+</button>
     </div>
 
     <div class="valor-final">
-        <span>Valor final</span>
-        <span>R$ <span id="total">0,40</span></span>
+        <span>Valor final: R$ <span id="total">0,40</span></span>
     </div>
 
-    <button class="btn-reservar" onclick="exibirPix()">RESERVAR</button>
+    <div id="areaPix" style="text-align: center;">
+        <img src="1000138409.jpg" style="width: 200px; margin-bottom: 15px;">
+        <textarea id="copiaCola" style="width:100%; height:80px; margin-bottom:10px;" readonly>00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB</textarea>
+        <button class="btn-reservar" onclick="copiar()">RESERVAR</button>
+    </div>
 
     <div class="info-bar">
         <div class="box">MÉTODO DE PAGAMENTO<br>💎 PIX</div>
         <div class="box">SORTEIO<br>🍀 LIVE NO INSTAGRAM</div>
-    </div>
-
-    <div id="areaPix" style="display:none; margin-top:20px; text-align: center;">
-        <img src="1000138409.jpg" style="width: 150px;">
-        <textarea id="copiaCola" style="width:100%; height:50px; margin-top:10px;" readonly></textarea>
-        <button onclick="copiar()" style="width:100%; padding:10px; margin-top:5px;">COPIAR CÓDIGO</button>
     </div>
 </div>
 
@@ -68,14 +62,11 @@
         document.getElementById('qtd').value = qtd;
         document.getElementById('total').innerText = (qtd * 0.40).toFixed(2).replace('.', ',');
     }
-    function exibirPix() {
-        document.getElementById('copiaCola').value = "00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB";
-        document.getElementById('areaPix').style.display = 'block';
-    }
     function copiar() {
-        document.getElementById('copiaCola').select();
+        var c = document.getElementById('copiaCola');
+        c.select();
         document.execCommand('copy');
-        alert("Código copiado!");
+        alert("Código Pix copiado! Lembre-se de conferir o valor R$ " + document.getElementById('total').innerText + " no seu banco.");
     }
 </script>
 </body>
