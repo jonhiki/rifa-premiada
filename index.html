@@ -46,7 +46,7 @@
     <button class="btn-reservar" onclick="gerarPix()">GERAR PIX</button>
 
     <div id="resultadoPix" style="margin-top:20px; display:none;">
-        <p>Código para copiar (cole no seu banco):</p>
+        <p>Código para copiar:</p>
         <textarea id="copiaCola" readonly style="width:100%; height:80px; font-size: 12px;"></textarea>
         <button class="btn-reservar" style="background: #27ae60;" onclick="copiarTexto()">COPIAR CÓDIGO</button>
     </div>
@@ -67,26 +67,25 @@
 
     function gerarPix() {
         var valorTotal = (qtd * 0.40).toFixed(2);
-        var chavePix = "Bce1dc10-49d2-49ca-8369-dae7b62bd6c4"; 
-        var nome = "Davi Amor";
+        var chave = "Bce1dc10-49d2-49ca-8369-dae7b62bd6c4";
+        var nome = "DAVI AMOR";
+        var pix = "00020126" + (27 + chave.length) + "0014BR.GOV.BCB.PIX01" + (chave.length < 10 ? "0" + chave.length : chave.length) + chave + "5204000053039865405" + valorTotal + "5802BR5913" + nome + "6008BRASILIA62070503***6304";
         
-        var tamanhoChave = chavePix.length;
-        var chaveFormatada = ("00" + tamanhoChave).slice(-2) + chavePix;
-
-        var payload = "00020126" + (27 + tamanhoChave) + "0014BR.GOV.BCB.PIX01" + chaveFormatada + 
-                      "5204000053039865405" + valorTotal + "5802BR5913" + nome + "6008BRASILIA62070503***6304";
-        
-        document.getElementById('copiaCola').value = payload;
+        var crc = 0xFFFF;
+        for (let i = 0; i < pix.length; i++) {
+            crc ^= pix.charCodeAt(i) << 8;
+            for (let j = 0; j < 8; j++) crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : (crc << 1);
+        }
+        document.getElementById('copiaCola').value = pix + ("0000" + (crc & 0xFFFF).toString(16).toUpperCase()).slice(-4);
         document.getElementById('resultadoPix').style.display = 'block';
     }
 
     function copiarTexto() {
-        var campo = document.getElementById('copiaCola');
-        campo.select();
+        var c = document.getElementById('copiaCola');
+        c.select();
         document.execCommand('copy');
-        alert("Código copiado! Pode colar no seu banco.");
+        alert("Código copiado!");
     }
 </script>
-
 </body>
 </html>
