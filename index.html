@@ -1,42 +1,18 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corrente do Bem</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
-        .card { background: #ffffff; width: 100%; max-width: 500px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center; }
-        .btn-pix { background: #059669; color: white; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin: 20px 0; font-size: 16px; }
-        .btn-pix:hover { background: #047857; }
-        .galeria img { width: 100%; border-radius: 12px; margin-bottom: 10px; display: block; }
-    </style>
-</head>
-<body>
-<div class="card">
-    <h1>Corrente do Bem ❤️</h1>
-    <p>Sua solidariedade transforma vidas. Clique abaixo para copiar o código Pix:</p>
-    
-    <button class="btn-pix" onclick="copiar()">CLIQUE AQUI PARA COPIAR O PIX</button>
-    <p id="aviso"></p>
+<style>
+    .vitrine { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 20px; }
+    .item { border: 1px solid #ddd; padding: 15px; border-radius: 10px; text-align: center; background: white; }
+    .btn-comprar { background: #6366f1; color: white; padding: 10px; border: none; border-radius: 5px; width: 100%; margin-top: 10px; cursor: pointer; }
+</style>
 
-    <div class="galeria">
-        <img src="063d0c70-1bea-44ef-82c8-7f0d3125b743.jpeg" alt="Foto">
-        <img src="1000138414.jpg" alt="Foto">
-        <img src="1000138419.png" alt="Foto">
-        <img src="3f402980-15ba-48ca-b30b-e0ffb50228e1.jpeg" alt="Foto">
-        <img src="6e6cb1cb-c5fa-4383-8d4a-943352cd2aec.jpeg" alt="Foto">
-        <img src="a5b38671-c216-4391-8e1d-3e3737136955.jpeg" alt="Foto">
-        <img src="d740c41d-9884-4c00-a53e-09fe6bdf34cc.jpeg" alt="Foto">
+<div class="vitrine">
+    <div class="item">
+        <h3>110 Diamantes</h3>
+        <p>R$ 4,49</p>
+        <button class="btn-comprar" onclick="window.location.href='LINK_DE_PAGAMENTO_AQUI'">Comprar</button>
+    </div>
+    <div class="item">
+        <h3>572 Diamantes</h3>
+        <p>R$ 20,99</p>
+        <button class="btn-comprar" onclick="window.location.href='LINK_DE_PAGAMENTO_AQUI'">Comprar</button>
     </div>
 </div>
-<script>
-    function copiar() {
-        const pix = '00020126470014BR.GOV.BCB.PIX0125deividkratos000@gmail.com5204000053039865802BR5919DEIVID ARRUDA CAJUI6015PORTO SEGURO (T62070503***6304A3AB';
-        navigator.clipboard.writeText(pix).then(() => {
-            document.getElementById('aviso').innerText = "Código copiado com sucesso! Pode colar no seu banco.";
-        });
-    }
-</script>
-</body>
-</html>
